@@ -14,3 +14,16 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+DROP TABLE IF EXISTS docs;
+DROP TABLE IF EXISTS word_counts;
+
+CREATE TABLE docs (line STRING, fecha DATE, numero INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+
+LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE docs;
+
+INSERT OVERWRITE DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT line, COUNT(1) 
+        FROM docs
+        GROUP BY line;
