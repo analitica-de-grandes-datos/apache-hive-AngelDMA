@@ -15,7 +15,6 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 */
 
 DROP TABLE IF EXISTS docs;
-DROP TABLE IF EXISTS word_counts;
 
 CREATE TABLE docs (line STRING, fecha DATE, numero INT)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
