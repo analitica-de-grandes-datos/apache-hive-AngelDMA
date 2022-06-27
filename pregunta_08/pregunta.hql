@@ -46,4 +46,11 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+INSERT OVERWRITE DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT a.c2, SUM(a.nums) FROM (
+    SELECT c2, exp.explitted AS nums FROM tbl0
+    LATERAL VIEW EXPLODE(MAP_VALUES(c6)) exp AS explitted
+) AS a
+GROUP BY a.c2;
 
