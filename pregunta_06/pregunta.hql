@@ -47,10 +47,4 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 */
 INSERT OVERWRITE DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT a.letras FROM (
-    SELECT a.y, CONCAT_WS(':',COLLECT_LIST(UPPER(letras))) as letras FROM (
-        SELECT c1 y, exp.explitted as letras  FROM tbl0
-        LATERAL VIEW EXPLODE(c5) exp as explitted
-    ) AS a
-    GROUP BY a.y
-) AS a;
+SELECT UPPER(CONCAT_WS(':',C5)) as letras FROM tbl0;
